@@ -1,7 +1,19 @@
 const posts = require('../data/posts');
 
 const index = (req, res) => {
-    res.json(posts);
+    const searchFilter = req.query.search;
+    let postsCopy = [...posts];
+    if(searchFilter) {
+        postsCopy = postsCopy.filter((post) => {
+            const normalizedFilter = searchFilter.toLowerCase().trim();
+            for (const tag of post.tags) {
+                const normalizedtag = tag.toLowerCase().trim();
+                if(normalizedtag.includes(normalizedFilter)) return true;
+            }
+            return false;
+        })
+    }
+    res.json(postsCopy);
 };
 const show = (req, res) => {
     const id = parseInt(req.params.id);
