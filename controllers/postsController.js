@@ -1,8 +1,14 @@
-const posts = require('../data/posts');
+let posts = require('../data/posts');
+
+posts = posts.map((post) => {
+    return {...post, image: "http://localhost:3000" + post.image}
+});
+
+console.log(posts);
 
 const index = (req, res) => {
-    const searchFilter = req.query.search;
     let postsCopy = [...posts];
+    const searchFilter = req.query.search;
     if(searchFilter) {
         postsCopy = postsCopy.filter((post) => {
             const normalizedFilter = searchFilter.toLowerCase().trim();
