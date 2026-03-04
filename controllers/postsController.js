@@ -1,6 +1,6 @@
-const postsData = require('../data/posts');
+let posts = require('../data/posts');
 
-const posts = postsData.map((post) => {
+posts = posts.map((post) => {
     return {...post, image: "http://localhost:3000" + post.image}
 });
 
@@ -52,11 +52,26 @@ const store = (req, res) => {
     };
 
     posts.push(newPost);
+
     console.log(newPost);
-    res.send(posts);
+    res.send(postsCopy);
 };
 const update = (req, res) => {
-    res.send(`il post ${req.params.id} è stato modificato interamente`);
+    const id = parseInt(req.params.id);
+    const {title, content, image, tags} = req.body;
+
+    const post = posts.find((post) => post.id === id);
+
+    post.title = title;
+    post.content = content;
+    post.image = image;
+    post.tags = tags;
+
+
+    res.json({
+        success: true,
+        result: post
+    });
 };
 const modify = (req, res) => {
     res.send(`il post ${req.params.id} è stato modificato parzialmente`);
