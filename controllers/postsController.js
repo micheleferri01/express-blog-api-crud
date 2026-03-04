@@ -1,10 +1,10 @@
-let posts = require('../data/posts');
+const postsData = require('../data/posts');
 
-posts = posts.map((post) => {
+const posts = postsData.map((post) => {
     return {...post, image: "http://localhost:3000" + post.image}
 });
 
-console.log(posts);
+// console.log(posts);
 
 const index = (req, res) => {
     let postsCopy = [...posts];
@@ -40,7 +40,20 @@ const show = (req, res) => {
 
 };
 const store = (req, res) => {
-    res.send("Creato nuovo post");
+    const postsCopy = [...posts];
+    const {title, content, image, tags} = req.body;
+    
+    const newPost = {
+        id: postsCopy[postsCopy.length - 1].id + 1,
+        title: title,
+        content: content,
+        image: image,
+        tags: tags
+    };
+
+    posts.push(newPost);
+    console.log(newPost);
+    res.send(posts);
 };
 const update = (req, res) => {
     res.send(`il post ${req.params.id} è stato modificato interamente`);
