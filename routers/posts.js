@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const postsController = require('../controllers/postsController');
+const validEndpoint = require('../middlewares/validEndpoint')
 
 
 // # index
@@ -21,6 +22,8 @@ router.patch("/:id", postsController.modify);
 
 // # destroy
 router.delete("/:id", postsController.destroy);
+
+router.use(validEndpoint);
 
 
 module.exports = router;

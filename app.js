@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const url = `http://localhost:${port}`;
 const postsRouter = require('./routers/posts');
+const validEndpoint = require('./middlewares/validEndpoint');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -12,6 +13,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/posts', postsRouter);
+
+app.use(validEndpoint);
 
 app.listen(port, () => {
     console.log(`the server is listening on port: ${port}`);
