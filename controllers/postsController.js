@@ -41,51 +41,7 @@ const show = (req, res) => {
 };
 const store = (req, res) => {
     const postsCopy = [...posts];
-    const {title, content, image, tags} = req.body;
-
-    if(!title || typeof title !== "string"){
-       return res.status(400).json(
-            {
-                success: false,
-                message: "il title inserito non è valido."
-            }
-        )
-
-    }
-
-    if(posts.some((post) => post.title === title)){
-       return res.status(400).json({
-            success: false,
-            message: "Esista già un post con questo titolo"
-        })
-    }
-
-    if(!content || typeof content !== "string"){
-       return res.status(400).json(
-            {
-                success: false,
-                message: "il content inserito non è valido"
-            }
-        )
-    }
-
-    if(!image || typeof image !== "string"){
-       return res.status(400).json(
-            {
-                success: false,
-                message: "l'image inserita non è valida"
-            }
-        )
-    }
-
-    if(!tags || !Array.isArray(tags)|| tags.length === 0) {
-       return res.status(400).json(
-            {
-                success: false,
-                message: "il formato dei tags è errato o inesistente."
-            }
-        )
-    }
+    const { title, content, image, tags } = req.body;
     
     const newPost = {
         id: postsCopy[postsCopy.length - 1].id + 1,
@@ -102,44 +58,7 @@ const store = (req, res) => {
 };
 const update = (req, res) => {
     const id = parseInt(req.params.id);
-    const {title, content, image, tags} = req.body;
-
-    if (!title || typeof title !== "string") {
-        return res.status(400).json(
-            {
-                success: false,
-                message: "il title inserito non è valido."
-            }
-        )
-
-    }
-
-    if (!content || typeof content !== "string") {
-        return res.status(400).json(
-            {
-                success: false,
-                message: "il content inserito non è valido"
-            }
-        )
-    }
-
-    if (!image || typeof image !== "string") {
-        return res.status(400).json(
-            {
-                success: false,
-                message: "l'image inserita non è valida"
-            }
-        )
-    }
-
-    if (!tags || !Array.isArray(tags) || tags.length === 0) {
-        return res.status(400).json(
-            {
-                success: false,
-                message: "il formato dei tags è errato o inesistente."
-            }
-        )
-    }
+    const { title, content, image, tags } = req.body;
 
     const post = posts.find((post) => post.id === id);
 
