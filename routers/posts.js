@@ -4,6 +4,7 @@ const router = express.Router();
 const postsController = require('../controllers/postsController');
 const validEndpoint = require('../middlewares/validEndpoint');
 const dataValidation = require('../middlewares/dataValidation');
+const errorsHandler = require('../middlewares/errorsHandler')
 
 
 
@@ -24,6 +25,8 @@ router.patch("/:id", postsController.modify);
 
 // # destroy
 router.delete("/:id", postsController.destroy);
+
+router.use(errorsHandler);
 
 router.use(validEndpoint);
 
